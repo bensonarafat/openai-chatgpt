@@ -1,0 +1,9 @@
+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
+
+curl https://api.openai.com/v1/completions \
+-H "Content-Type: application/json" \
+-H "Authorization: Bearer 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" \
+-d '{"model": "text-davinci-003", "prompt": "How can i get a remote job", "temperature": 0, "max_tokens": 2000}'
+
+curl https://api.openai.com/v1/models \
+  -H 'Authorization: Bearer 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'
