@@ -1,16 +1,24 @@
-# openai
+# ChatGPT 
 
-A new Flutter project.
+ChatGPT has been one of the biggest talks for the past days.
+How Al applies machine language algorithms to a massive corpus of text to respond to user's requests.
 
-## Getting Started
+![ScreenShot](/recording/record1.gif)
+![ScreenShot](/recording/record1.gif)
 
-This project is a starting point for a Flutter application.
+## clone this repo
 
-A few resources to get you started if this is your first Flutter project:
+```
+git clone https://github.com/bensonarafat/openai-chat.git
+```
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Available Scripts
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+First thing first, clean project 
+### `flutter clean` 
+
+Install all packages
+### `flutter pub get`
+### Support Me
+
+<a href="https://www.buymeacoffee.com/bensonarafat"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" width="200" /></a>
