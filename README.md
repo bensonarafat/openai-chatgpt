@@ -21,7 +21,7 @@ Install all packages
 ### `flutter pub get`
 
 ### Learn this app was build 
-https://realarafatben.medium.com/build-a-chatgpt-on-flutter-using-the-openai-api-7c467638ee0c 
+https://medium.com/@bensonarafat/build-a-chatgpt-on-flutter-using-the-openai-api-7c467638ee0c
 ### Support Me
 
 <a href="https://www.buymeacoffee.com/bensonarafat"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" width="200" /></a>
