@@ -20,7 +20,7 @@ First thing first, clean project
 Install all packages
 ### `flutter pub get`
 
-### Learn this app was build 
+### Learn how this app was build 
 https://medium.com/@bensonarafat/build-a-chatgpt-on-flutter-using-the-openai-api-7c467638ee0c
 ### Support Me
 
