@@ -9,7 +9,7 @@ How Al applies machine language algorithms to a massive corpus of text to respon
 ## clone this repo
 
 ```
-git clone https://github.com/bensonarafat/openai-chat.git
+git clone https://github.com/bensonarafat/openai-chatgpt.git
 ```
 
 ## Available Scripts
