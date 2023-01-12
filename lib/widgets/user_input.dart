@@ -1,4 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gravatar/flutter_gravatar.dart';
+import 'package:openai_chat/api_constants.dart';
 import 'package:openai_chat/model/chatmodel.dart';
 import 'package:provider/provider.dart';
 
@@ -11,6 +14,7 @@ class UserInput extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final gravatar = Gravatar(emailAddress);
     return Align(
       alignment: Alignment.bottomCenter,
       child: Container(
@@ -33,10 +37,12 @@ class UserInput extends StatelessWidget {
           children: [
             Expanded(
               flex: 1,
-              child: Image.asset(
-                "images/avatar.png",
+              child: CachedNetworkImage(
+                imageUrl: gravatar.imageUrl(),
+                width: 40,
                 height: 40,
-              ),
+                fit: BoxFit.cover,
+              )
             ),
             Expanded(
               flex: 5,
