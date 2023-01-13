@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:openai_chat/model/chatmodel.dart';
-import 'package:provider/provider.dart';
 import 'package:openai_chat/widgets/user_input.dart';
+import 'package:provider/provider.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(const MyApp());
 }
 
+/// Main app class
 class MyApp extends StatefulWidget {
+  /// Constructor
   const MyApp({super.key});
 
   @override
@@ -18,12 +20,11 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
-    TextEditingController chatcontroller = TextEditingController();
+    final chatcontroller = TextEditingController();
 
     return MaterialApp(
-      title: "Open AI Chat",
+      title: 'Open AI Chat',
       home: SafeArea(
-        bottom: true,
         top: false,
         child: Scaffold(
           backgroundColor: const Color(0xff343541),
@@ -37,7 +38,7 @@ class _MyAppState extends State<MyApp> {
               ),
             ),
             elevation: 0,
-            title: const Text("New Chat"),
+            title: const Text('New Chat'),
             centerTitle: true,
             actions: [
               IconButton(
@@ -54,7 +55,7 @@ class _MyAppState extends State<MyApp> {
               ChangeNotifierProvider(create: (_) => ChatModel()),
             ],
             child: Consumer<ChatModel>(builder: (context, model, child) {
-              List<Widget> messages = model.getMessages;
+              final messages = model.getMessages;
               return Stack(
                 children: [
                   //chat
