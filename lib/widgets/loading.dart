@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+/// Loading widget
 class Loading extends StatelessWidget {
-  final String text;
+  /// Constructor
   const Loading({
-    Key? key,
+    super.key,
     required this.text,
-  }) : super(key: key);
+  });
+  /// Text
+  final String text;
 
   @override
   Widget build(BuildContext context) {
@@ -24,10 +27,9 @@ class Loading extends StatelessWidget {
                 color: const Color(0xff0fa37f),
                 padding: const EdgeInsets.all(3),
                 child: SvgPicture.asset(
-                  "images/ai-avatar.svg",
+                  'images/ai-avatar.svg',
                   height: 30,
                   width: 30,
-                  fit: BoxFit.contain,
                 ),
               ),
             ),

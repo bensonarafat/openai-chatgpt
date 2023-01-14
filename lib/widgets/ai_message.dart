@@ -3,14 +3,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-enum RenderingState { none, inProgress, complete }
+/// Rendering state
+enum RenderingState {
+  /// Not rendered
+  none,
+  /// Rendering complete
+  complete
+}
 
+/// AI Message class
 class AiMessage extends StatefulWidget {
-  final String text;
+
+  /// Constructor
   const AiMessage({
-    Key? key,
+    super.key,
     required this.text,
-  }) : super(key: key);
+  });
+
+  /// Message text
+  final String text;
 
   @override
   State<AiMessage> createState() => _AiMessageState();
@@ -20,6 +31,7 @@ class _AiMessageState extends State<AiMessage> {
   RenderingState renderingState = RenderingState.none;
   Size renderSize = Size.zero;
   GlobalKey textKey = GlobalKey();
+  bool _hasRendered = false;
 
   @override
   Widget build(BuildContext context) {
@@ -30,24 +42,22 @@ class _AiMessageState extends State<AiMessage> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
-            flex: 1,
             child: Padding(
-              padding: const EdgeInsets.all(8.0),
+              padding: const EdgeInsets.all(8),
               child: Container(
                 color: const Color(0xff0fa37f),
                 padding: const EdgeInsets.all(3),
                 child: SvgPicture.asset(
-                  "images/ai-avatar.svg",
+                  'images/ai-avatar.svg',
                   height: 30,
                   width: 30,
-                  fit: BoxFit.contain,
                 ),
               ),
             ),
           ),
           Expanded(
             flex: 5,
-            child: renderingState != RenderingState.complete
+            child: renderingState != RenderingState.complete && !_hasRendered
                 ? AnimatedTextKit(
                     key: textKey,
                     animatedTexts: [
@@ -62,6 +72,7 @@ class _AiMessageState extends State<AiMessage> {
                     ],
                     onFinished: () {
                       setState(() {
+                        _hasRendered = true;
                         renderingState = RenderingState.complete;
                         renderSize = (textKey.currentContext != null
                             ? textKey.currentContext!.size
@@ -83,7 +94,7 @@ class _AiMessageState extends State<AiMessage> {
                       onSelectionChanged: (selection, cause) async {
                         if (cause != null &&
                             cause == SelectionChangedCause.longPress) {
-                          String selected = widget.text
+                          final selected = widget.text
                               .substring(selection.start, selection.end);
                           await Clipboard.setData(
                               ClipboardData(text: selected));

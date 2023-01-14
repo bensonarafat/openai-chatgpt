@@ -1,3 +1,8 @@
-const endpoint = "https://api.openai.com/v1/";
-const aiToken = "[insert your token here]";
-const emailAddress = "[insert your email address here]";
+/// OpenAI endpoint
+const endpoint = 'https://api.openai.com/v1/';
+
+/// API key
+const aiToken = '[put token here]';
+
+/// Email for Gravatar image
+const emailAddress = '[insert email for gravatar]';

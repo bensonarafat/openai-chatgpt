@@ -5,12 +5,15 @@ import 'package:openai_chat/api_constants.dart';
 import 'package:openai_chat/model/chatmodel.dart';
 import 'package:provider/provider.dart';
 
+/// User Input
 class UserInput extends StatelessWidget {
-  final TextEditingController chatcontroller;
+  /// Constructor.
   const UserInput({
-    Key? key,
+    super.key,
     required this.chatcontroller,
-  }) : super(key: key);
+  });
+  /// Text editing controller
+  final TextEditingController chatcontroller;
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +39,6 @@ class UserInput extends StatelessWidget {
         child: Row(
           children: [
             Expanded(
-              flex: 1,
               child: CachedNetworkImage(
                 imageUrl: gravatar.imageUrl(),
                 width: 40,
@@ -66,12 +68,12 @@ class UserInput extends StatelessWidget {
                   focusedBorder: OutlineInputBorder(
                     borderSide: BorderSide.none,
                     borderRadius: BorderRadius.all(
-                      Radius.circular(5.0),
+                      Radius.circular(5),
                     ),
                   ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.all(
-                      Radius.circular(5.0),
+                      Radius.circular(5),
                     ),
                   ),
                 ),
