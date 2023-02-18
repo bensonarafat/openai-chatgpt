@@ -1,6 +1,6 @@
 # ChatGPT 
 
-ChatGPT has been one of the biggest talks for the past days.
+ChatGPT has been one of the biggest talks for the past months.
 How Al applies machine language algorithms to a massive corpus of text to respond to user's requests.
 
 ![ScreenShot](/recording/record1.gif)
