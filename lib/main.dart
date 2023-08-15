@@ -1,4 +1,7 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_gravatar/flutter_gravatar.dart';
+import 'package:openai_chat/api_constants.dart';
 import 'package:openai_chat/model/chatmodel.dart';
 import 'package:openai_chat/widgets/user_input.dart';
 import 'package:provider/provider.dart';
@@ -18,24 +21,89 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  ScrollController _scrollController = ScrollController();
+  void automaticScrollList() {
+    _scrollController.jumpTo(_scrollController.position.maxScrollExtent);
+  }
+
   @override
   Widget build(BuildContext context) {
     final chatcontroller = TextEditingController();
+    final gravatar = Gravatar(emailAddress);
 
     return MaterialApp(
       title: 'Open AI Chat',
       home: SafeArea(
         top: false,
         child: Scaffold(
+          drawer: Drawer(
+            backgroundColor: const Color(0xff343541),
+            child: SafeArea(
+              child: Column(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 20,
+                      horizontal: 10,
+                    ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(right: 8),
+                          child: CachedNetworkImage(
+                            imageUrl: gravatar.imageUrl(),
+                            width: 40,
+                            height: 40,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        Text(
+                          emailAddress,
+                          style:
+                              Theme.of(context).textTheme.labelLarge!.copyWith(
+                                    color: Colors.white,
+                                    fontSize: 15,
+                                  ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const Divider(
+                    color: Color.fromARGB(255, 23, 23, 29),
+                  ),
+                  Expanded(
+                    child: Center(
+                      child: Text(
+                        'new options will be added soon...',
+                        style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                              color: Colors.white,
+                              fontSize: 15,
+                            ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
           backgroundColor: const Color(0xff343541),
           appBar: AppBar(
             backgroundColor: const Color(0xff343541),
-            leading: IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.menu,
-                color: Color(0xffd1d5db),
-              ),
+            leading: Builder(
+              builder: (context) {
+                return IconButton(
+                  onPressed: () {
+                    if (!Scaffold.of(context).isDrawerOpen) {
+                      Scaffold.of(context).openDrawer();
+                    }
+                  },
+                  icon: const Icon(
+                    Icons.menu,
+                    color: Color(0xffd1d5db),
+                  ),
+                );
+              },
             ),
             elevation: 0,
             title: const Text('New Chat'),
@@ -54,30 +122,29 @@ class _MyAppState extends State<MyApp> {
             providers: [
               ChangeNotifierProvider(create: (_) => ChatModel()),
             ],
-            child: Consumer<ChatModel>(builder: (context, model, child) {
-              final messages = model.getMessages;
-              return Stack(
-                children: [
-                  //chat
+            child: Consumer<ChatModel>(
+              builder: (context, model, child) {
+                final messages = model.getMessages;
 
-                  Container(
-                    margin: const EdgeInsets.only(bottom: 80),
-                    child: ListView(
-                      children: [
-                        const Divider(
-                          color: Color(0xffd1d5db),
-                        ),
-                        for (int i = 0; i < messages.length; i++) messages[i]
-                      ],
+                return Column(
+                  children: [
+                    Expanded(
+                      child: ListView.builder(
+                        controller: _scrollController,
+                        itemCount: messages.length,
+                        itemBuilder: (context, index) {
+                          return messages[index];
+                        },
+                      ),
                     ),
-                  ),
-                  //input
-                  UserInput(
-                    chatcontroller: chatcontroller,
-                  )
-                ],
-              );
-            }),
+                    UserInput(
+                      chatcontroller: chatcontroller,
+                      scrollFunction: automaticScrollList,
+                    )
+                  ],
+                );
+              },
+            ),
           ),
         ),
       ),

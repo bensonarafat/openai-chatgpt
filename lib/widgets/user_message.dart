@@ -14,24 +14,26 @@ class UserMessage extends StatelessWidget {
 
   /// User message text.
   final String text;
+  final double fontSize = 15;
 
   @override
   Widget build(BuildContext context) {
     final gravatar = Gravatar(emailAddress);
     return Container(
-      padding: const EdgeInsets.all(8),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Expanded(
+          Flexible(
             child: Padding(
-                padding: const EdgeInsets.all(8),
-                child: CachedNetworkImage(
-                  imageUrl: gravatar.imageUrl(),
-                  width: 40,
-                  height: 40,
-                  fit: BoxFit.cover,
-                )),
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
+              child: CachedNetworkImage(
+                imageUrl: gravatar.imageUrl(),
+                width: 40,
+                height: 40,
+                fit: BoxFit.cover,
+              ),
+            ),
           ),
           Expanded(
             flex: 5,
@@ -41,20 +43,19 @@ class UserMessage extends StatelessWidget {
                 top: 8,
               ),
               child: SizedBox(
-                height: 100,
                 child: SelectionArea(
                   onSelectionChanged: (content) async {
                     if (content != null) {
                       await Clipboard.setData(
-                          ClipboardData(text: content.plainText));
+                        ClipboardData(text: content.plainText),
+                      );
                     }
                   },
                   child: Text(
                     text,
-                    style: const TextStyle(
-                      color: Color(0xffd1d5db),
-                      fontSize: 16,
-                      fontWeight: FontWeight.w700,
+                    style: TextStyle(
+                      color: const Color(0xffd1d5db),
+                      fontSize: fontSize,
                     ),
                   ),
                 ),

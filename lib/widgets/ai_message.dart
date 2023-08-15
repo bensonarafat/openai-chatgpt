@@ -7,13 +7,13 @@ import 'package:flutter_svg/flutter_svg.dart';
 enum RenderingState {
   /// Not rendered
   none,
+
   /// Rendering complete
   complete
 }
 
 /// AI Message class
 class AiMessage extends StatefulWidget {
-
   /// Constructor
   const AiMessage({
     super.key,
@@ -33,6 +33,7 @@ class _AiMessageState extends State<AiMessage> {
   GlobalKey textKey = GlobalKey();
   bool _hasRendered = false;
 
+  double fontSize = 15;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -41,17 +42,25 @@ class _AiMessageState extends State<AiMessage> {
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Expanded(
+          Flexible(
             child: Padding(
-              padding: const EdgeInsets.all(8),
-              child: Container(
-                color: const Color(0xff0fa37f),
-                padding: const EdgeInsets.all(3),
-                child: SvgPicture.asset(
-                  'images/ai-avatar.svg',
-                  height: 30,
-                  width: 30,
-                ),
+              padding: const EdgeInsets.symmetric(horizontal: 10),
+              child: Row(
+                children: [
+                  Container(
+                    color: const Color(0xff0fa37f),
+                    padding: const EdgeInsets.all(3),
+                    child: Row(
+                      children: [
+                        SvgPicture.asset(
+                          'images/ai-avatar.svg',
+                          height: 30,
+                          width: 30,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -63,21 +72,19 @@ class _AiMessageState extends State<AiMessage> {
                     animatedTexts: [
                       TypewriterAnimatedText(
                         widget.text,
-                        textStyle: const TextStyle(
-                          color: Color(0xffd1d5db),
-                          fontSize: 16,
-                          fontWeight: FontWeight.w700,
+                        textStyle: TextStyle(
+                          color: const Color(0xffd1d5db),
+                          fontSize: fontSize,
                         ),
                       ),
                     ],
                     onFinished: () {
-                      setState(() {
-                        _hasRendered = true;
-                        renderingState = RenderingState.complete;
-                        renderSize = (textKey.currentContext != null
-                            ? textKey.currentContext!.size
-                            : const Size(300, 100))!;
-                      });
+                      setState(
+                        () {
+                          _hasRendered = true;
+                          renderingState = RenderingState.complete;
+                        },
+                      );
                     },
                     totalRepeatCount: 1,
                   )
@@ -86,21 +93,24 @@ class _AiMessageState extends State<AiMessage> {
                     height: renderSize.height,
                     child: SelectableText.rich(
                       TextSpan(
-                          text: widget.text,
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodySmall!
-                              .copyWith(color: Colors.white)),
+                        text: widget.text,
+                        style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                              color: Colors.white,
+                              fontSize: fontSize,
+                            ),
+                      ),
                       onSelectionChanged: (selection, cause) async {
                         if (cause != null &&
                             cause == SelectionChangedCause.longPress) {
                           final selected = widget.text
                               .substring(selection.start, selection.end);
                           await Clipboard.setData(
-                              ClipboardData(text: selected));
+                            ClipboardData(text: selected),
+                          );
                         }
                       },
-                    )),
+                    ),
+                  ),
           ),
         ],
       ),
