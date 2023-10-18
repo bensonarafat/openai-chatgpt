@@ -14,7 +14,7 @@ git clone https://github.com/bensonarafat/openai-chatgpt.git
 
 ## Available Scripts
 
-First thing first, clean project 
+First thing first, clean the project 
 ### `flutter clean` 
 
 Install all packages
